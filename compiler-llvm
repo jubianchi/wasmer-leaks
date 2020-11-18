@@ -1,154 +1,125 @@
-==13207== Memcheck, a memory error detector
-==13207== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==13207== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==13207== Command: /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm
-==13207== 
-==13207== Conditional jump or move depends on uninitialised value(s)
-==13207==    at 0x1BFA16D: wasmparser::validator::Validator::end (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1BEFC6C: wasmparser::validator::Validator::payload (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1BEEEE1: wasmparser::validator::Validator::validate_all (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A2CCC: wasmer_compiler::compiler::Compiler::validate_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x471FC8: <wasmer_engine_jit::engine::JITEngine as wasmer_engine::engine::Engine>::validate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1AEA5A4: wasmer::module::Module::from_binary (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x469C21: wasmer::module::Module::new (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x46C26E: compiler_llvm::main (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x46A0B2: std::rt::lang_start::{{closure}} (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1C9C262: {{closure}} (rt.rs:52)
-==13207==    by 0x1C9C262: do_call<closure-0,i32> (panicking.rs:348)
-==13207==    by 0x1C9C262: try<i32,closure-0> (panicking.rs:325)
-==13207==    by 0x1C9C262: catch_unwind<closure-0,i32> (panic.rs:394)
-==13207==    by 0x1C9C262: std::rt::lang_start_internal (rt.rs:51)
-==13207==    by 0x46D0D1: main (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207== 
-==13207== Conditional jump or move depends on uninitialised value(s)
-==13207==    at 0xAF1C1F: (anonymous namespace)::PeepholeOptimizer::runOnMachineFunction(llvm::MachineFunction&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0xA3AD47: llvm::MachineFunctionPass::runOnFunction(llvm::Function&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x12B76C7: llvm::FPPassManager::runOnFunction(llvm::Function&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x12B7952: llvm::FPPassManager::runOnModule(llvm::Module&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x12B7FA9: llvm::legacy::PassManagerImpl::run(llvm::Module&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0xBD3BC1: LLVMTargetMachineEmit(LLVMOpaqueTargetMachine*, LLVMOpaqueModule*, llvm::raw_pwrite_stream&, LLVMCodeGenFileType, char**) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0xBD3C99: LLVMTargetMachineEmitToMemoryBuffer (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x587763: inkwell::targets::TargetMachine::write_to_memory_buffer (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4E32B3: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A0488: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D3D08: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D9E78: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207== 
-==13207== 
-==13207== HEAP SUMMARY:
-==13207==     in use at exit: 144,428 bytes in 1,554 blocks
-==13207==   total heap usage: 13,316 allocs, 11,762 frees, 3,196,746 bytes allocated
-==13207== 
-==13207== 8 bytes in 1 blocks are definitely lost in loss record 9 of 1,491
-==13207==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13207==    by 0x5983B3: inkwell::module::Module::get_global_metadata (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4BC155: wasmer_compiler_llvm::translator::intrinsics::tbaa_label (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4F5C86: wasmer_compiler_llvm::translator::code::LLVMFunctionCodeGenerator::translate_operator (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4E1B2A: wasmer_compiler_llvm::translator::code::FuncTranslator::translate_to_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4E31CA: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A0488: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D3D08: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D9E78: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4AA228: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4BED31: rayon::iter::collect::<impl rayon::iter::ParallelExtend<T> for alloc::vec::Vec<T>>::par_extend (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A6301: rayon::result::<impl rayon::iter::FromParallelIterator<core::result::Result<T,E>> for core::result::Result<C,E>>::from_par_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207== 
-==13207== 8 bytes in 1 blocks are definitely lost in loss record 10 of 1,491
-==13207==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13207==    by 0x5983B3: inkwell::module::Module::get_global_metadata (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4BBF40: wasmer_compiler_llvm::translator::intrinsics::tbaa_label (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4F5C86: wasmer_compiler_llvm::translator::code::LLVMFunctionCodeGenerator::translate_operator (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4E1B2A: wasmer_compiler_llvm::translator::code::FuncTranslator::translate_to_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4E31CA: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A0488: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D3D08: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D9E78: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4AA228: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4BED31: rayon::iter::collect::<impl rayon::iter::ParallelExtend<T> for alloc::vec::Vec<T>>::par_extend (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A6301: rayon::result::<impl rayon::iter::FromParallelIterator<core::result::Result<T,E>> for core::result::Result<C,E>>::from_par_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207== 
-==13207== 16 bytes in 2 blocks are definitely lost in loss record 13 of 1,491
-==13207==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13207==    by 0x5983B3: inkwell::module::Module::get_global_metadata (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4BC202: wasmer_compiler_llvm::translator::intrinsics::tbaa_label (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4F5C86: wasmer_compiler_llvm::translator::code::LLVMFunctionCodeGenerator::translate_operator (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4E1B2A: wasmer_compiler_llvm::translator::code::FuncTranslator::translate_to_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4E31CA: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A0488: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D3D08: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D9E78: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4AA228: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4BED31: rayon::iter::collect::<impl rayon::iter::ParallelExtend<T> for alloc::vec::Vec<T>>::par_extend (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A6301: rayon::result::<impl rayon::iter::FromParallelIterator<core::result::Result<T,E>> for core::result::Result<C,E>>::from_par_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207== 
-==13207== 16 bytes in 2 blocks are definitely lost in loss record 14 of 1,491
-==13207==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13207==    by 0x5983B3: inkwell::module::Module::get_global_metadata (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4BC2DE: wasmer_compiler_llvm::translator::intrinsics::tbaa_label (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4F5C86: wasmer_compiler_llvm::translator::code::LLVMFunctionCodeGenerator::translate_operator (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4E1B2A: wasmer_compiler_llvm::translator::code::FuncTranslator::translate_to_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4E31CA: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A0488: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D3D08: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4D9E78: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4AA228: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4BED31: rayon::iter::collect::<impl rayon::iter::ParallelExtend<T> for alloc::vec::Vec<T>>::par_extend (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4A6301: rayon::result::<impl rayon::iter::FromParallelIterator<core::result::Result<T,E>> for core::result::Result<C,E>>::from_par_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207== 
-==13207== 52 bytes in 1 blocks are possibly lost in loss record 1,171 of 1,491
-==13207==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13207==    by 0x1BC4512: hashbrown::raw::inner::RawTable<T>::fallible_with_capacity (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1BC3F2E: _ZN9hashbrown3raw5inner17RawTable$LT$T$GT$14reserve_rehash17he29be5fc862d84d8E.llvm.8588116468508767673 (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1BC90C1: wasmer_compiler::translator::sections::parse_export_section (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1BD575D: wasmer_compiler::translator::module::translate_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1BCB708: wasmer_compiler::translator::environ::ModuleEnvironment::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x490F04: wasmer_engine_jit::artifact::JITArtifact::new (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x47217A: <wasmer_engine_jit::engine::JITEngine as wasmer_engine::engine::Engine>::compile (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1AEA5FF: wasmer::module::Module::from_binary (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x469C21: wasmer::module::Module::new (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x46C26E: compiler_llvm::main (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x46A0B2: std::rt::lang_start::{{closure}} (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207== 
-==13207== 432 (416 direct, 16 indirect) bytes in 1 blocks are definitely lost in loss record 1,472 of 1,491
-==13207==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13207==    by 0x1C1943D: wasmer_vm::instance::InstanceHandle::allocate_instance (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x48D151: wasmer_engine::artifact::Artifact::instantiate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1AEA95D: wasmer::module::Module::instantiate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1AF0152: wasmer::instance::Instance::new (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x46C3CD: compiler_llvm::main (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x46A0B2: std::rt::lang_start::{{closure}} (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1C9C262: {{closure}} (rt.rs:52)
-==13207==    by 0x1C9C262: do_call<closure-0,i32> (panicking.rs:348)
-==13207==    by 0x1C9C262: try<i32,closure-0> (panicking.rs:325)
-==13207==    by 0x1C9C262: catch_unwind<closure-0,i32> (panic.rs:394)
-==13207==    by 0x1C9C262: std::rt::lang_start_internal (rt.rs:51)
-==13207==    by 0x46D0D1: main (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207== 
-==13207== 1,216 bytes in 4 blocks are possibly lost in loss record 1,479 of 1,491
-==13207==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13207==    by 0x4013666: allocate_dtv (dl-tls.c:286)
-==13207==    by 0x4013666: _dl_allocate_tls (dl-tls.c:530)
-==13207==    by 0x5252227: allocate_stack (allocatestack.c:627)
-==13207==    by 0x5252227: pthread_create@@GLIBC_2.2.5 (pthread_create.c:644)
-==13207==    by 0x1CAA8DC: std::sys::unix::thread::Thread::new (thread.rs:66)
-==13207==    by 0x572BB6: std::thread::Builder::spawn (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x575F36: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x576AEF: rayon_core::registry::Registry::new (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x579AE6: std::sync::once::Once::call_once::{{closure}} (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x1C95909: std::sync::once::Once::call_inner (once.rs:416)
-==13207==    by 0x5760B0: rayon_core::registry::global_registry (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x578EAB: rayon_core::current_num_threads (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207==    by 0x4AA1AC: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
-==13207== 
-==13207== LEAK SUMMARY:
-==13207==    definitely lost: 464 bytes in 7 blocks
-==13207==    indirectly lost: 16 bytes in 2 blocks
-==13207==      possibly lost: 1,268 bytes in 5 blocks
-==13207==    still reachable: 142,680 bytes in 1,540 blocks
-==13207==         suppressed: 0 bytes in 0 blocks
-==13207== Reachable blocks (those to which a pointer was found) are not shown.
-==13207== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==13207== 
-==13207== For counts of detected and suppressed errors, rerun with: -v
-==13207== Use --track-origins=yes to see where uninitialised values come from
-==13207== ERROR SUMMARY: 27 errors from 9 contexts (suppressed: 0 from 0)
+==21835== Memcheck, a memory error detector
+==21835== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==21835== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==21835== Command: /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm
+==21835== 
+==21835== Conditional jump or move depends on uninitialised value(s)
+==21835==    at 0x1BF99BD: wasmparser::validator::Validator::end (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x1BEF4BC: wasmparser::validator::Validator::payload (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x1BEE731: wasmparser::validator::Validator::validate_all (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A333C: wasmer_compiler::compiler::Compiler::validate_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x471FC8: <wasmer_engine_jit::engine::JITEngine as wasmer_engine::engine::Engine>::validate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x1AEA594: wasmer::module::Module::from_binary (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x469D11: wasmer::module::Module::new (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x46C396: compiler_llvm::main (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x46A1A2: std::rt::lang_start::{{closure}} (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x1C9BB32: {{closure}} (rt.rs:52)
+==21835==    by 0x1C9BB32: do_call<closure-0,i32> (panicking.rs:348)
+==21835==    by 0x1C9BB32: try<i32,closure-0> (panicking.rs:325)
+==21835==    by 0x1C9BB32: catch_unwind<closure-0,i32> (panic.rs:394)
+==21835==    by 0x1C9BB32: std::rt::lang_start_internal (rt.rs:51)
+==21835==    by 0x46D0D1: main (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835== 
+==21835== Conditional jump or move depends on uninitialised value(s)
+==21835==    at 0xAF158F: (anonymous namespace)::PeepholeOptimizer::runOnMachineFunction(llvm::MachineFunction&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0xA3A6B7: llvm::MachineFunctionPass::runOnFunction(llvm::Function&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x12B7037: llvm::FPPassManager::runOnFunction(llvm::Function&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x12B72C2: llvm::FPPassManager::runOnModule(llvm::Module&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x12B7919: llvm::legacy::PassManagerImpl::run(llvm::Module&) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0xBD3531: LLVMTargetMachineEmit(LLVMOpaqueTargetMachine*, LLVMOpaqueModule*, llvm::raw_pwrite_stream&, LLVMCodeGenFileType, char**) (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0xBD3609: LLVMTargetMachineEmitToMemoryBuffer (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x5870D3: inkwell::targets::TargetMachine::write_to_memory_buffer (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4E2DE3: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A0978: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4D4388: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4DC5C3: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835== 
+==21835== 
+==21835== HEAP SUMMARY:
+==21835==     in use at exit: 142,988 bytes in 1,540 blocks
+==21835==   total heap usage: 13,317 allocs, 11,777 frees, 3,196,826 bytes allocated
+==21835== 
+==21835== 8 bytes in 1 blocks are definitely lost in loss record 1 of 1,477
+==21835==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==21835==    by 0x597D23: inkwell::module::Module::get_global_metadata (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4BC7D5: wasmer_compiler_llvm::translator::intrinsics::tbaa_label (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4F57B6: wasmer_compiler_llvm::translator::code::LLVMFunctionCodeGenerator::translate_operator (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4E165A: wasmer_compiler_llvm::translator::code::FuncTranslator::translate_to_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4E2CFA: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A0978: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4D4388: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4DC5C3: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4AA7A8: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4BF791: rayon::iter::collect::<impl rayon::iter::ParallelExtend<T> for alloc::vec::Vec<T>>::par_extend (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A6971: rayon::result::<impl rayon::iter::FromParallelIterator<core::result::Result<T,E>> for core::result::Result<C,E>>::from_par_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835== 
+==21835== 8 bytes in 1 blocks are definitely lost in loss record 2 of 1,477
+==21835==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==21835==    by 0x597D23: inkwell::module::Module::get_global_metadata (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4BC5C0: wasmer_compiler_llvm::translator::intrinsics::tbaa_label (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4F57B6: wasmer_compiler_llvm::translator::code::LLVMFunctionCodeGenerator::translate_operator (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4E165A: wasmer_compiler_llvm::translator::code::FuncTranslator::translate_to_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4E2CFA: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A0978: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4D4388: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4DC5C3: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4AA7A8: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4BF791: rayon::iter::collect::<impl rayon::iter::ParallelExtend<T> for alloc::vec::Vec<T>>::par_extend (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A6971: rayon::result::<impl rayon::iter::FromParallelIterator<core::result::Result<T,E>> for core::result::Result<C,E>>::from_par_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835== 
+==21835== 16 bytes in 2 blocks are definitely lost in loss record 5 of 1,477
+==21835==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==21835==    by 0x597D23: inkwell::module::Module::get_global_metadata (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4BC882: wasmer_compiler_llvm::translator::intrinsics::tbaa_label (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4F57B6: wasmer_compiler_llvm::translator::code::LLVMFunctionCodeGenerator::translate_operator (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4E165A: wasmer_compiler_llvm::translator::code::FuncTranslator::translate_to_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4E2CFA: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A0978: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4D4388: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4DC5C3: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4AA7A8: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4BF791: rayon::iter::collect::<impl rayon::iter::ParallelExtend<T> for alloc::vec::Vec<T>>::par_extend (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A6971: rayon::result::<impl rayon::iter::FromParallelIterator<core::result::Result<T,E>> for core::result::Result<C,E>>::from_par_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835== 
+==21835== 16 bytes in 2 blocks are definitely lost in loss record 6 of 1,477
+==21835==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==21835==    by 0x597D23: inkwell::module::Module::get_global_metadata (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4BC95E: wasmer_compiler_llvm::translator::intrinsics::tbaa_label (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4F57B6: wasmer_compiler_llvm::translator::code::LLVMFunctionCodeGenerator::translate_operator (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4E165A: wasmer_compiler_llvm::translator::code::FuncTranslator::translate_to_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4E2CFA: wasmer_compiler_llvm::translator::code::FuncTranslator::translate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A0978: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::try_fold (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4D4388: <rayon::iter::fold::FoldFolder<C,ID,F> as rayon::iter::plumbing::Folder<T>>::consume_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4DC5C3: rayon::iter::plumbing::bridge_producer_consumer::helper (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4AA7A8: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4BF791: rayon::iter::collect::<impl rayon::iter::ParallelExtend<T> for alloc::vec::Vec<T>>::par_extend (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4A6971: rayon::result::<impl rayon::iter::FromParallelIterator<core::result::Result<T,E>> for core::result::Result<C,E>>::from_par_iter (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835== 
+==21835== 1,216 bytes in 4 blocks are possibly lost in loss record 1,465 of 1,477
+==21835==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==21835==    by 0x4013666: allocate_dtv (dl-tls.c:286)
+==21835==    by 0x4013666: _dl_allocate_tls (dl-tls.c:530)
+==21835==    by 0x5252227: allocate_stack (allocatestack.c:627)
+==21835==    by 0x5252227: pthread_create@@GLIBC_2.2.5 (pthread_create.c:644)
+==21835==    by 0x1CAA1AC: std::sys::unix::thread::Thread::new (thread.rs:66)
+==21835==    by 0x5726E6: std::thread::Builder::spawn (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x575986: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x57654F: rayon_core::registry::Registry::new (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x5796D5: std::sync::once::Once::call_once::{{closure}} (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x1C951D9: std::sync::once::Once::call_inner (once.rs:416)
+==21835==    by 0x575B05: rayon_core::registry::global_registry (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x578AB4: rayon_core::current_num_threads (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835==    by 0x4AA72C: <rayon::iter::while_some::WhileSome<I> as rayon::iter::ParallelIterator>::drive_unindexed (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/compiler-llvm)
+==21835== 
+==21835== LEAK SUMMARY:
+==21835==    definitely lost: 48 bytes in 6 blocks
+==21835==    indirectly lost: 0 bytes in 0 blocks
+==21835==      possibly lost: 1,216 bytes in 4 blocks
+==21835==    still reachable: 141,724 bytes in 1,530 blocks
+==21835==         suppressed: 0 bytes in 0 blocks
+==21835== Reachable blocks (those to which a pointer was found) are not shown.
+==21835== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==21835== 
+==21835== For counts of detected and suppressed errors, rerun with: -v
+==21835== Use --track-origins=yes to see where uninitialised values come from
+==21835== ERROR SUMMARY: 25 errors from 7 contexts (suppressed: 0 from 0)
