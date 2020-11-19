@@ -1,60 +1,467 @@
-==3550== Memcheck, a memory error detector
-==3550== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==3550== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
-==3550== Command: /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native
-==3550== 
---3550-- WARNING: unhandled amd64-linux syscall: 332
---3550-- You may be able to write your own handler.
---3550-- Read the file README_MISSING_SYSCALL_OR_IOCTL.
---3550-- Nevertheless we consider this a bug.  Please report
---3550-- it at http://valgrind.org/support/bug_reports.html.
-==3550== Conditional jump or move depends on uninitialised value(s)
-==3550==    at 0x6B5DED: wasmparser::validator::Validator::end (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x6AB8EC: wasmparser::validator::Validator::payload (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x6AAB61: wasmparser::validator::Validator::validate_all (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x2C424C: wasmer_compiler::compiler::Compiler::validate_module (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x26DA08: <wasmer_engine_native::engine::NativeEngine as wasmer_engine::engine::Engine>::validate (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x5A6864: wasmer::module::Module::from_binary (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x266561: wasmer::module::Module::new (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x268B0F: engine_native::main (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x2669F2: std::rt::lang_start::{{closure}} (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x757FA2: {{closure}} (rt.rs:52)
-==3550==    by 0x757FA2: do_call<closure-0,i32> (panicking.rs:348)
-==3550==    by 0x757FA2: try<i32,closure-0> (panicking.rs:325)
-==3550==    by 0x757FA2: catch_unwind<closure-0,i32> (panic.rs:394)
-==3550==    by 0x757FA2: std::rt::lang_start_internal (rt.rs:51)
-==3550==    by 0x269841: main (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550== 
-==3550== 
-==3550== HEAP SUMMARY:
-==3550==     in use at exit: 29,456 bytes in 88 blocks
-==3550==   total heap usage: 730 allocs, 642 frees, 125,023 bytes allocated
-==3550== 
-==3550== 1,152 bytes in 4 blocks are possibly lost in loss record 22 of 28
-==3550==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==3550==    by 0x4013666: allocate_dtv (dl-tls.c:286)
-==3550==    by 0x4013666: _dl_allocate_tls (dl-tls.c:530)
-==3550==    by 0x5252227: allocate_stack (allocatestack.c:627)
-==3550==    by 0x5252227: pthread_create@@GLIBC_2.2.5 (pthread_create.c:644)
-==3550==    by 0x76661C: std::sys::unix::thread::Thread::new (thread.rs:66)
-==3550==    by 0x307A36: std::thread::Builder::spawn (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x30ADB6: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x30B96F: rayon_core::registry::Registry::new (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x30E966: std::sync::once::Once::call_once::{{closure}} (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x751649: std::sync::once::Once::call_inner (once.rs:416)
-==3550==    by 0x30AF30: rayon_core::registry::global_registry (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x30DD2B: rayon_core::current_num_threads (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550==    by 0x2B6F11: <rayon::iter::plumbing::bridge::Callback<C> as rayon::iter::plumbing::ProducerCallback<I>>::callback (in /home/wasmer/repositories/wasmer/wasmer/target/release/examples/engine-native)
-==3550== 
-==3550== LEAK SUMMARY:
-==3550==    definitely lost: 0 bytes in 0 blocks
-==3550==    indirectly lost: 0 bytes in 0 blocks
-==3550==      possibly lost: 1,152 bytes in 4 blocks
-==3550==    still reachable: 28,304 bytes in 84 blocks
-==3550==         suppressed: 0 bytes in 0 blocks
-==3550== Reachable blocks (those to which a pointer was found) are not shown.
-==3550== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==3550== 
-==3550== For counts of detected and suppressed errors, rerun with: -v
-==3550== Use --track-origins=yes to see where uninitialised values come from
-==3550== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==29798== Memcheck, a memory error detector
+==29798== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==29798== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==29798== Command: /home/wasmer/repositories/wasmer/wasmer/target/debug/examples/engine-native
+==29798== 
+--29798-- WARNING: unhandled amd64-linux syscall: 332
+--29798-- You may be able to write your own handler.
+--29798-- Read the file README_MISSING_SYSCALL_OR_IOCTL.
+--29798-- Nevertheless we consider this a bug.  Please report
+--29798-- it at http://valgrind.org/support/bug_reports.html.
+==29798== 
+==29798== HEAP SUMMARY:
+==29798==     in use at exit: 29,456 bytes in 88 blocks
+==29798==   total heap usage: 732 allocs, 644 frees, 125,098 bytes allocated
+==29798== 
+==29798== 8 bytes in 1 blocks are still reachable in loss record 1 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xE70592: new<alloc::sync::Arc<rayon_core::registry::Registry>> (boxed.rs:177)
+==29798==    by 0xE70592: rayon_core::util::leak (util.rs:5)
+==29798==    by 0xE7588E: rayon_core::registry::set_global_registry::{{closure}}::{{closure}} (registry.rs:196)
+==29798==    by 0xEAB8C8: core::result::Result<T,E>::map (result.rs:519)
+==29798==    by 0xE75929: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798==    by 0xE98D60: std::sync::once::Once::call_once (once.rs:264)
+==29798==    by 0xE75836: rayon_core::registry::set_global_registry (registry.rs:194)
+==29798== 
+==29798== 32 bytes in 1 blocks are still reachable in loss record 2 of 28
+==29798==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x4E3F7F4: _dlerror_run (dlerror.c:140)
+==29798==    by 0x4E3F165: dlsym (dlsym.c:70)
+==29798==    by 0x1D6BBF3: fetch (weak.rs:61)
+==29798==    by 0x1D6BBF3: get<unsafe extern "C" fn(*const libc::unix::linux_like::linux::gnu::b64::x86_64::pthread_attr_t) -> usize> (weak.rs:46)
+==29798==    by 0x1D6BBF3: min_stack_size (thread.rs:449)
+==29798==    by 0x1D6BBF3: std::sys::unix::thread::Thread::new (thread.rs:49)
+==29798==    by 0xEA52CB: std::thread::Builder::spawn_unchecked (mod.rs:492)
+==29798==    by 0xEA64FB: std::thread::Builder::spawn (mod.rs:386)
+==29798==    by 0xE75318: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (registry.rs:101)
+==29798==    by 0xE763FF: rayon_core::registry::Registry::new (registry.rs:260)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798== 
+==29798== 64 bytes in 4 blocks are still reachable in loss record 3 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xE84276: new<crossbeam_deque::deque::Buffer<rayon_core::job::JobRef>> (boxed.rs:177)
+==29798==    by 0xE84276: <T as crossbeam_epoch::atomic::Pointable>::init (atomic.rs:188)
+==29798==    by 0xEA0B23: crossbeam_epoch::atomic::Owned<T>::init (atomic.rs:861)
+==29798==    by 0xEA0C73: crossbeam_epoch::atomic::Atomic<T>::init (atomic.rs:309)
+==29798==    by 0xEA0C43: crossbeam_epoch::atomic::Atomic<T>::new (atomic.rs:294)
+==29798==    by 0xE82976: crossbeam_deque::deque::Worker<T>::new_lifo (deque.rs:253)
+==29798==    by 0xE7687E: rayon_core::registry::Registry::new::{{closure}} (registry.rs:229)
+==29798==    by 0xEAF58C: core::iter::adapters::map_fold::{{closure}} (mod.rs:833)
+==29798==    by 0xE801DD: core::iter::traits::iterator::Iterator::fold (iterator.rs:2022)
+==29798== 
+==29798== 64 bytes in 4 blocks are still reachable in loss record 4 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D6BB4C: alloc (alloc.rs:80)
+==29798==    by 0x1D6BB4C: alloc (alloc.rs:174)
+==29798==    by 0x1D6BB4C: exchange_malloc (alloc.rs:277)
+==29798==    by 0x1D6BB4C: std::sys::unix::thread::Thread::new (thread.rs:44)
+==29798==    by 0xEA52CB: std::thread::Builder::spawn_unchecked (mod.rs:492)
+==29798==    by 0xEA64FB: std::thread::Builder::spawn (mod.rs:386)
+==29798==    by 0xE75318: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (registry.rs:101)
+==29798==    by 0xE763FF: rayon_core::registry::Registry::new (registry.rs:260)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798==    by 0xE98D60: std::sync::once::Once::call_once (once.rs:264)
+==29798==    by 0xE75836: rayon_core::registry::set_global_registry (registry.rs:194)
+==29798== 
+==29798== 128 bytes in 4 blocks are still reachable in loss record 5 of 28
+==29798==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x56C48E1: __cxa_thread_atexit_impl (cxa_thread_atexit_impl.c:106)
+==29798==    by 0x1D3817E: register_dtor (fast_thread_local.rs:33)
+==29798==    by 0x1D3817E: try_register_dtor<core::cell::RefCell<core::option::Option<std::sys_common::thread_info::ThreadInfo>>> (local.rs:438)
+==29798==    by 0x1D3817E: std::thread::local::fast::Key<T>::try_initialize (local.rs:424)
+==29798==    by 0x1D5A979: get<core::cell::RefCell<core::option::Option<std::sys_common::thread_info::ThreadInfo>>,fn() -> core::cell::RefCell<core::option::Option<std::sys_common::thread_info::ThreadInfo>>> (local.rs:410)
+==29798==    by 0x1D5A979: __getit (local.rs:175)
+==29798==    by 0x1D5A979: try_with<core::cell::RefCell<core::option::Option<std::sys_common::thread_info::ThreadInfo>>,closure-0,()> (local.rs:262)
+==29798==    by 0x1D5A979: with<core::cell::RefCell<core::option::Option<std::sys_common::thread_info::ThreadInfo>>,closure-0,()> (local.rs:239)
+==29798==    by 0x1D5A979: std::sys_common::thread_info::set (thread_info.rs:40)
+==29798==    by 0xEA5691: std::thread::Builder::spawn_unchecked::{{closure}} (mod.rs:473)
+==29798==    by 0xE99DAE: core::ops::function::FnOnce::call_once{{vtable-shim}} (function.rs:233)
+==29798==    by 0x1D6BF69: call_once<(),FnOnce<()>> (boxed.rs:1081)
+==29798==    by 0x1D6BF69: call_once<(),alloc::boxed::Box<FnOnce<()>>> (boxed.rs:1081)
+==29798==    by 0x1D6BF69: std::sys::unix::thread::Thread::new::thread_start (thread.rs:87)
+==29798==    by 0x52516DA: start_thread (pthread_create.c:463)
+==29798==    by 0x57A271E: clone (clone.S:95)
+==29798== 
+==29798== 128 bytes in 4 blocks are still reachable in loss record 6 of 28
+==29798==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x56C48E1: __cxa_thread_atexit_impl (cxa_thread_atexit_impl.c:106)
+==29798==    by 0xEDD601: std::thread::local::fast::Key<T>::try_register_dtor (local.rs:438)
+==29798==    by 0xEDD502: std::thread::local::fast::Key<T>::try_initialize (local.rs:424)
+==29798==    by 0xEDD6A6: std::thread::local::fast::Key<T>::get (local.rs:410)
+==29798==    by 0xEDD3FC: crossbeam_epoch::default::HANDLE::__getit (local.rs:175)
+==29798==    by 0xE870A4: std::thread::local::LocalKey<T>::try_with (local.rs:262)
+==29798==    by 0xE8CA32: crossbeam_epoch::default::with_handle (default.rs:43)
+==29798==    by 0xE8CD16: crossbeam_epoch::default::is_pinned (default.rs:30)
+==29798==    by 0xE82B3C: crossbeam_deque::deque::Stealer<T>::steal (deque.rs:619)
+==29798==    by 0xE786E2: rayon_core::registry::WorkerThread::steal::{{closure}} (registry.rs:779)
+==29798==    by 0xE73ACC: core::iter::traits::iterator::Iterator::find_map::check::{{closure}} (iterator.rs:2258)
+==29798== 
+==29798== 160 bytes in 4 blocks are still reachable in loss record 7 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xEA39DF: std::sync::mutex::Mutex<T>::new (mutex.rs:223)
+==29798==    by 0xEB71F0: rayon_core::latch::LockLatch::new (latch.rs:230)
+==29798==    by 0xE7762C: rayon_core::registry::ThreadInfo::new (registry.rs:583)
+==29798==    by 0xE99CC1: core::ops::function::FnMut::call_mut (function.rs:154)
+==29798==    by 0xEAF2A3: core::iter::adapters::map_fold::{{closure}} (mod.rs:833)
+==29798==    by 0xE92C43: core::iter::traits::iterator::Iterator::fold (iterator.rs:2022)
+==29798==    by 0xEB0B58: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold (mod.rs:873)
+==29798==    by 0xEAEA59: core::iter::traits::iterator::Iterator::for_each (iterator.rs:658)
+==29798== 
+==29798== 160 bytes in 4 blocks are still reachable in loss record 8 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xEA39DF: std::sync::mutex::Mutex<T>::new (mutex.rs:223)
+==29798==    by 0xEB71F0: rayon_core::latch::LockLatch::new (latch.rs:230)
+==29798==    by 0xE77644: rayon_core::registry::ThreadInfo::new (registry.rs:584)
+==29798==    by 0xE99CC1: core::ops::function::FnMut::call_mut (function.rs:154)
+==29798==    by 0xEAF2A3: core::iter::adapters::map_fold::{{closure}} (mod.rs:833)
+==29798==    by 0xE92C43: core::iter::traits::iterator::Iterator::fold (iterator.rs:2022)
+==29798==    by 0xEB0B58: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold (mod.rs:873)
+==29798==    by 0xEAEA59: core::iter::traits::iterator::Iterator::for_each (iterator.rs:658)
+==29798== 
+==29798== 160 bytes in 4 blocks are still reachable in loss record 9 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xEA39DF: std::sync::mutex::Mutex<T>::new (mutex.rs:223)
+==29798==    by 0xEA7353: <std::sync::mutex::Mutex<T> as core::default::Default>::default (mutex.rs:446)
+==29798==    by 0xE9203E: <rayon_core::sleep::WorkerSleepState as core::default::Default>::default (mod.rs:55)
+==29798==    by 0xE8F46D: <crossbeam_utils::cache_padded::CachePadded<T> as core::default::Default>::default (cache_padded.rs:77)
+==29798==    by 0xE908DA: rayon_core::sleep::Sleep::new::{{closure}} (mod.rs:67)
+==29798==    by 0xEAF450: core::iter::adapters::map_fold::{{closure}} (mod.rs:833)
+==29798==    by 0xE7FFE8: core::iter::traits::iterator::Iterator::fold (iterator.rs:2022)
+==29798==    by 0xEB0C29: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold (mod.rs:873)
+==29798== 
+==29798== 160 bytes in 4 blocks are still reachable in loss record 10 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D3951E: alloc (alloc.rs:80)
+==29798==    by 0x1D3951E: alloc (alloc.rs:174)
+==29798==    by 0x1D3951E: exchange_malloc (alloc.rs:277)
+==29798==    by 0x1D3951E: new<()> (mutex.rs:223)
+==29798==    by 0x1D3951E: std::thread::Thread::new (mod.rs:1149)
+==29798==    by 0xEA506D: std::thread::Builder::spawn_unchecked (mod.rs:462)
+==29798==    by 0xEA64FB: std::thread::Builder::spawn (mod.rs:386)
+==29798==    by 0xE75318: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (registry.rs:101)
+==29798==    by 0xE763FF: rayon_core::registry::Registry::new (registry.rs:260)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798==    by 0xE98D60: std::sync::once::Once::call_once (once.rs:264)
+==29798==    by 0xE75836: rayon_core::registry::set_global_registry (registry.rs:194)
+==29798== 
+==29798== 160 bytes in 4 blocks are still reachable in loss record 11 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xE6EA37: alloc::sync::Arc<T>::new (sync.rs:324)
+==29798==    by 0xEA510B: std::thread::Builder::spawn_unchecked (mod.rs:465)
+==29798==    by 0xEA64FB: std::thread::Builder::spawn (mod.rs:386)
+==29798==    by 0xE75318: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (registry.rs:101)
+==29798==    by 0xE763FF: rayon_core::registry::Registry::new (registry.rs:260)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798== 
+==29798== 192 bytes in 4 blocks are still reachable in loss record 12 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D56616: alloc (alloc.rs:80)
+==29798==    by 0x1D56616: alloc (alloc.rs:174)
+==29798==    by 0x1D56616: exchange_malloc (alloc.rs:277)
+==29798==    by 0x1D56616: std::sync::condvar::Condvar::new (condvar.rs:130)
+==29798==    by 0xEB720C: rayon_core::latch::LockLatch::new (latch.rs:231)
+==29798==    by 0xE7762C: rayon_core::registry::ThreadInfo::new (registry.rs:583)
+==29798==    by 0xE99CC1: core::ops::function::FnMut::call_mut (function.rs:154)
+==29798==    by 0xEAF2A3: core::iter::adapters::map_fold::{{closure}} (mod.rs:833)
+==29798==    by 0xE92C43: core::iter::traits::iterator::Iterator::fold (iterator.rs:2022)
+==29798==    by 0xEB0B58: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold (mod.rs:873)
+==29798==    by 0xEAEA59: core::iter::traits::iterator::Iterator::for_each (iterator.rs:658)
+==29798==    by 0xE96631: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::spec_extend (vec.rs:2140)
+==29798==    by 0xE972B4: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::from_iter (vec.rs:2120)
+==29798==    by 0xE98256: <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter (vec.rs:1995)
+==29798== 
+==29798== 192 bytes in 4 blocks are still reachable in loss record 13 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D56616: alloc (alloc.rs:80)
+==29798==    by 0x1D56616: alloc (alloc.rs:174)
+==29798==    by 0x1D56616: exchange_malloc (alloc.rs:277)
+==29798==    by 0x1D56616: std::sync::condvar::Condvar::new (condvar.rs:130)
+==29798==    by 0xEB720C: rayon_core::latch::LockLatch::new (latch.rs:231)
+==29798==    by 0xE77644: rayon_core::registry::ThreadInfo::new (registry.rs:584)
+==29798==    by 0xE99CC1: core::ops::function::FnMut::call_mut (function.rs:154)
+==29798==    by 0xEAF2A3: core::iter::adapters::map_fold::{{closure}} (mod.rs:833)
+==29798==    by 0xE92C43: core::iter::traits::iterator::Iterator::fold (iterator.rs:2022)
+==29798==    by 0xEB0B58: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold (mod.rs:873)
+==29798==    by 0xEAEA59: core::iter::traits::iterator::Iterator::for_each (iterator.rs:658)
+==29798==    by 0xE96631: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::spec_extend (vec.rs:2140)
+==29798==    by 0xE972B4: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::from_iter (vec.rs:2120)
+==29798==    by 0xE98256: <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter (vec.rs:1995)
+==29798== 
+==29798== 192 bytes in 4 blocks are still reachable in loss record 14 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D56616: alloc (alloc.rs:80)
+==29798==    by 0x1D56616: alloc (alloc.rs:174)
+==29798==    by 0x1D56616: exchange_malloc (alloc.rs:277)
+==29798==    by 0x1D56616: std::sync::condvar::Condvar::new (condvar.rs:130)
+==29798==    by 0xE9205A: <rayon_core::sleep::WorkerSleepState as core::default::Default>::default (mod.rs:57)
+==29798==    by 0xE8F46D: <crossbeam_utils::cache_padded::CachePadded<T> as core::default::Default>::default (cache_padded.rs:77)
+==29798==    by 0xE908DA: rayon_core::sleep::Sleep::new::{{closure}} (mod.rs:67)
+==29798==    by 0xEAF450: core::iter::adapters::map_fold::{{closure}} (mod.rs:833)
+==29798==    by 0xE7FFE8: core::iter::traits::iterator::Iterator::fold (iterator.rs:2022)
+==29798==    by 0xEB0C29: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold (mod.rs:873)
+==29798==    by 0xEAE88A: core::iter::traits::iterator::Iterator::for_each (iterator.rs:658)
+==29798==    by 0xE969F7: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::spec_extend (vec.rs:2140)
+==29798==    by 0xE97211: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::from_iter (vec.rs:2120)
+==29798==    by 0xE981F5: <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter (vec.rs:1995)
+==29798== 
+==29798== 192 bytes in 4 blocks are still reachable in loss record 15 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D39582: alloc (alloc.rs:80)
+==29798==    by 0x1D39582: alloc (alloc.rs:174)
+==29798==    by 0x1D39582: exchange_malloc (alloc.rs:277)
+==29798==    by 0x1D39582: new (condvar.rs:130)
+==29798==    by 0x1D39582: std::thread::Thread::new (mod.rs:1150)
+==29798==    by 0xEA506D: std::thread::Builder::spawn_unchecked (mod.rs:462)
+==29798==    by 0xEA64FB: std::thread::Builder::spawn (mod.rs:386)
+==29798==    by 0xE75318: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (registry.rs:101)
+==29798==    by 0xE763FF: rayon_core::registry::Registry::new (registry.rs:260)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798==    by 0xE98D60: std::sync::once::Once::call_once (once.rs:264)
+==29798==    by 0xE75836: rayon_core::registry::set_global_registry (registry.rs:194)
+==29798== 
+==29798== 320 bytes in 4 blocks are still reachable in loss record 16 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D395D1: alloc (alloc.rs:80)
+==29798==    by 0x1D395D1: alloc (alloc.rs:174)
+==29798==    by 0x1D395D1: exchange_malloc (alloc.rs:277)
+==29798==    by 0x1D395D1: new<std::thread::Inner> (sync.rs:324)
+==29798==    by 0x1D395D1: std::thread::Thread::new (mod.rs:1145)
+==29798==    by 0xEA506D: std::thread::Builder::spawn_unchecked (mod.rs:462)
+==29798==    by 0xEA64FB: std::thread::Builder::spawn (mod.rs:386)
+==29798==    by 0xE75318: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (registry.rs:101)
+==29798==    by 0xE763FF: rayon_core::registry::Registry::new (registry.rs:260)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798==    by 0xE98D60: std::sync::once::Once::call_once (once.rs:264)
+==29798==    by 0xE75836: rayon_core::registry::set_global_registry (registry.rs:194)
+==29798== 
+==29798== 384 bytes in 1 blocks are still reachable in loss record 17 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xF05F6B: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xF06813: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xEFD32A: alloc::raw_vec::finish_grow (raw_vec.rs:497)
+==29798==    by 0xEB9FB0: alloc::raw_vec::RawVec<T,A>::grow_amortized (raw_vec.rs:429)
+==29798==    by 0xEB8903: alloc::raw_vec::RawVec<T,A>::try_reserve (raw_vec.rs:310)
+==29798==    by 0xEBC502: alloc::raw_vec::RawVec<T,A>::reserve (raw_vec.rs:300)
+==29798==    by 0xE953E8: alloc::vec::Vec<T>::reserve (vec.rs:505)
+==29798==    by 0xE96547: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::spec_extend (vec.rs:2136)
+==29798==    by 0xE972B4: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::from_iter (vec.rs:2120)
+==29798==    by 0xE98256: <alloc::vec::Vec<T> as core::iter::traits::collect::FromIterator<T>>::from_iter (vec.rs:1995)
+==29798==    by 0xEAE6B8: core::iter::traits::iterator::Iterator::collect (iterator.rs:1671)
+==29798== 
+==29798== 416 bytes in 4 blocks are still reachable in loss record 18 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xEA5237: new<closure-0> (boxed.rs:177)
+==29798==    by 0xEA5237: std::thread::Builder::spawn_unchecked (mod.rs:494)
+==29798==    by 0xEA64FB: std::thread::Builder::spawn (mod.rs:386)
+==29798==    by 0xE75318: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (registry.rs:101)
+==29798==    by 0xE763FF: rayon_core::registry::Registry::new (registry.rs:260)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798== 
+==29798== 512 bytes in 1 blocks are still reachable in loss record 19 of 28
+==29798==    at 0x4C33E76: memalign (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x4C33F91: posix_memalign (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D5C089: aligned_malloc (alloc.rs:95)
+==29798==    by 0x1D5C089: alloc (alloc.rs:22)
+==29798==    by 0x1D5C089: __rdl_alloc (alloc.rs:304)
+==29798==    by 0xF05F6B: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xF06813: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xEFD32A: alloc::raw_vec::finish_grow (raw_vec.rs:497)
+==29798==    by 0xEBA310: alloc::raw_vec::RawVec<T,A>::grow_amortized (raw_vec.rs:429)
+==29798==    by 0xEB8803: alloc::raw_vec::RawVec<T,A>::try_reserve (raw_vec.rs:310)
+==29798==    by 0xEBC462: alloc::raw_vec::RawVec<T,A>::reserve (raw_vec.rs:300)
+==29798==    by 0xE95388: alloc::vec::Vec<T>::reserve (vec.rs:505)
+==29798==    by 0xE96937: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::spec_extend (vec.rs:2136)
+==29798==    by 0xE97211: <alloc::vec::Vec<T> as alloc::vec::SpecExtend<T,I>>::from_iter (vec.rs:2120)
+==29798== 
+==29798== 640 bytes in 1 blocks are still reachable in loss record 20 of 28
+==29798==    at 0x4C33E76: memalign (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x4C33F91: posix_memalign (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D5C089: aligned_malloc (alloc.rs:95)
+==29798==    by 0x1D5C089: alloc (alloc.rs:22)
+==29798==    by 0x1D5C089: __rdl_alloc (alloc.rs:304)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xE6E865: alloc::sync::Arc<T>::new (sync.rs:324)
+==29798==    by 0xE75FF7: rayon_core::registry::Registry::new (registry.rs:238)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798== 
+==29798== 640 bytes in 1 blocks are still reachable in loss record 21 of 28
+==29798==    at 0x4C33E76: memalign (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x4C33F91: posix_memalign (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D5C089: aligned_malloc (alloc.rs:95)
+==29798==    by 0x1D5C089: alloc (alloc.rs:22)
+==29798==    by 0x1D5C089: __rdl_alloc (alloc.rs:304)
+==29798==    by 0xEE1E6B: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xEE23B3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xEE1DCC: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xEDE045: alloc::sync::Arc<T>::new (sync.rs:324)
+==29798==    by 0xEDE589: <crossbeam_epoch::collector::Collector as core::default::Default>::default (collector.rs:32)
+==29798==    by 0xEDE5B6: crossbeam_epoch::collector::Collector::new (collector.rs:40)
+==29798==    by 0xEDCAA9: __static_ref_initialize (default.rs:13)
+==29798==    by 0xEDCAA9: core::ops::function::FnOnce::call_once (function.rs:233)
+==29798==    by 0xEDC915: lazy_static::lazy::Lazy<T>::get::{{closure}} (inline_lazy.rs:31)
+==29798==    by 0xEDDBD4: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798== 
+==29798== 1,152 bytes in 4 blocks are possibly lost in loss record 22 of 28
+==29798==    at 0x4C33B25: calloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x4013666: allocate_dtv (dl-tls.c:286)
+==29798==    by 0x4013666: _dl_allocate_tls (dl-tls.c:530)
+==29798==    by 0x5252227: allocate_stack (allocatestack.c:627)
+==29798==    by 0x5252227: pthread_create@@GLIBC_2.2.5 (pthread_create.c:644)
+==29798==    by 0x1D6BC9C: std::sys::unix::thread::Thread::new (thread.rs:66)
+==29798==    by 0xEA52CB: std::thread::Builder::spawn_unchecked (mod.rs:492)
+==29798==    by 0xEA64FB: std::thread::Builder::spawn (mod.rs:386)
+==29798==    by 0xE75318: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn (registry.rs:101)
+==29798==    by 0xE763FF: rayon_core::registry::Registry::new (registry.rs:260)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798== 
+==29798== 1,520 bytes in 1 blocks are still reachable in loss record 23 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xE84651: new<crossbeam_deque::deque::Block<rayon_core::job::JobRef>> (boxed.rs:177)
+==29798==    by 0xE84651: <crossbeam_deque::deque::Injector<T> as core::default::Default>::default (deque.rs:1187)
+==29798==    by 0xE82EDD: crossbeam_deque::deque::Injector<T>::new (deque.rs:1213)
+==29798==    by 0xE75DC3: rayon_core::registry::Registry::new (registry.rs:242)
+==29798==    by 0xE7558D: rayon_core::registry::global_registry::{{closure}} (registry.rs:169)
+==29798==    by 0xE75919: rayon_core::registry::set_global_registry::{{closure}} (registry.rs:195)
+==29798==    by 0xE98DE3: std::sync::once::Once::call_once::{{closure}} (once.rs:264)
+==29798==    by 0x1D56CC9: std::sync::once::Once::call_inner (once.rs:416)
+==29798==    by 0xE98D60: std::sync::once::Once::call_once (once.rs:264)
+==29798== 
+==29798== 1,536 bytes in 4 blocks are still reachable in loss record 24 of 28
+==29798==    at 0x4C33E76: memalign (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x4C33F91: posix_memalign (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0x1D5C089: aligned_malloc (alloc.rs:95)
+==29798==    by 0x1D5C089: alloc (alloc.rs:22)
+==29798==    by 0x1D5C089: __rdl_alloc (alloc.rs:304)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xE6E685: alloc::sync::Arc<T>::new (sync.rs:324)
+==29798==    by 0xE82A0D: crossbeam_deque::deque::Worker<T>::new_lifo (deque.rs:250)
+==29798==    by 0xE7687E: rayon_core::registry::Registry::new::{{closure}} (registry.rs:229)
+==29798==    by 0xEAF58C: core::iter::adapters::map_fold::{{closure}} (mod.rs:833)
+==29798==    by 0xE801DD: core::iter::traits::iterator::Iterator::fold (iterator.rs:2022)
+==29798==    by 0xEB0DE3: <core::iter::adapters::Map<I,F> as core::iter::traits::iterator::Iterator>::fold (mod.rs:873)
+==29798== 
+==29798== 2,008 bytes in 1 blocks are still reachable in loss record 25 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xEE1E6B: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xEE23B3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xEE1DCC: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xEDA789: new<crossbeam_epoch::sync::queue::Node<crossbeam_epoch::internal::SealedBag>> (boxed.rs:177)
+==29798==    by 0xEDA789: <T as crossbeam_epoch::atomic::Pointable>::init (atomic.rs:188)
+==29798==    by 0xEDA135: crossbeam_epoch::atomic::Owned<T>::init (atomic.rs:861)
+==29798==    by 0xEDA085: crossbeam_epoch::atomic::Owned<T>::new (atomic.rs:846)
+==29798==    by 0xEDA98B: crossbeam_epoch::sync::queue::Queue<T>::new (queue.rs:50)
+==29798==    by 0xED5D83: crossbeam_epoch::internal::Global::new (internal.rs:254)
+==29798==    by 0xEDE57B: <crossbeam_epoch::collector::Collector as core::default::Default>::default (collector.rs:32)
+==29798==    by 0xEDE5B6: crossbeam_epoch::collector::Collector::new (collector.rs:40)
+==29798==    by 0xEDCAA9: __static_ref_initialize (default.rs:13)
+==29798==    by 0xEDCAA9: core::ops::function::FnOnce::call_once (function.rs:233)
+==29798== 
+==29798== 4,096 bytes in 4 blocks are still reachable in loss record 26 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xEB85BD: alloc::raw_vec::RawVec<T,A>::allocate_in (raw_vec.rs:183)
+==29798==    by 0xEBB830: alloc::raw_vec::RawVec<T,A>::with_capacity_in (raw_vec.rs:159)
+==29798==    by 0xEB79AE: alloc::raw_vec::RawVec<T>::with_capacity (raw_vec.rs:90)
+==29798==    by 0xE931BE: alloc::vec::Vec<T>::with_capacity (vec.rs:363)
+==29798==    by 0xE81420: crossbeam_deque::deque::Buffer<T>::alloc (deque.rs:45)
+==29798==    by 0xE828F9: crossbeam_deque::deque::Worker<T>::new_lifo (deque.rs:248)
+==29798==    by 0xE7687E: rayon_core::registry::Registry::new::{{closure}} (registry.rs:229)
+==29798==    by 0xEAF58C: core::iter::adapters::map_fold::{{closure}} (mod.rs:833)
+==29798==    by 0xE801DD: core::iter::traits::iterator::Iterator::fold (iterator.rs:2022)
+==29798== 
+==29798== 6,080 bytes in 4 blocks are still reachable in loss record 27 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xE9EDCB: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xE9FBF3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xE9ED2C: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xE84651: new<crossbeam_deque::deque::Block<rayon_core::job::JobRef>> (boxed.rs:177)
+==29798==    by 0xE84651: <crossbeam_deque::deque::Injector<T> as core::default::Default>::default (deque.rs:1187)
+==29798==    by 0xE82EDD: crossbeam_deque::deque::Injector<T>::new (deque.rs:1213)
+==29798==    by 0xE7045C: rayon_core::job::JobFifo::new (job.rs:193)
+==29798==    by 0xE7881A: rayon_core::registry::main_loop (registry.rs:806)
+==29798==    by 0xE74E4F: rayon_core::registry::ThreadBuilder::run (registry.rs:56)
+==29798==    by 0xE75500: <rayon_core::registry::DefaultSpawn as rayon_core::registry::ThreadSpawn>::spawn::{{closure}} (registry.rs:101)
+==29798==    by 0xEADDAF: std::sys_common::backtrace::__rust_begin_short_backtrace (backtrace.rs:130)
+==29798==    by 0xEA6380: std::thread::Builder::spawn_unchecked::{{closure}}::{{closure}} (mod.rs:475)
+==29798== 
+==29798== 8,160 bytes in 4 blocks are still reachable in loss record 28 of 28
+==29798==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==29798==    by 0xEE1E6B: alloc::alloc::alloc (alloc.rs:80)
+==29798==    by 0xEE23B3: <alloc::alloc::Global as core::alloc::AllocRef>::alloc (alloc.rs:174)
+==29798==    by 0xEE1DCC: alloc::alloc::exchange_malloc (alloc.rs:277)
+==29798==    by 0xED57B9: new<crossbeam_epoch::internal::Local> (boxed.rs:177)
+==29798==    by 0xED57B9: <T as crossbeam_epoch::atomic::Pointable>::init (atomic.rs:188)
+==29798==    by 0xEDA0D5: crossbeam_epoch::atomic::Owned<T>::init (atomic.rs:861)
+==29798==    by 0xEDA035: crossbeam_epoch::atomic::Owned<T>::new (atomic.rs:846)
+==29798==    by 0xED6622: crossbeam_epoch::internal::Local::register (internal.rs:392)
+==29798==    by 0xEDE5DD: crossbeam_epoch::collector::Collector::register (collector.rs:45)
+==29798==    by 0xEDD3C3: crossbeam_epoch::default::HANDLE::__init (default.rs:18)
+==29798==    by 0xEDCA88: core::ops::function::FnOnce::call_once (function.rs:233)
+==29798==    by 0xEE255B: std::thread::local::lazy::LazyKeyInner<T>::initialize (local.rs:289)
+==29798== 
+==29798== LEAK SUMMARY:
+==29798==    definitely lost: 0 bytes in 0 blocks
+==29798==    indirectly lost: 0 bytes in 0 blocks
+==29798==      possibly lost: 1,152 bytes in 4 blocks
+==29798==    still reachable: 28,304 bytes in 84 blocks
+==29798==         suppressed: 0 bytes in 0 blocks
+==29798== 
+==29798== For counts of detected and suppressed errors, rerun with: -v
+==29798== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
